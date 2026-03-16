@@ -4,6 +4,37 @@ This guide contains breaking changes between major Mesa versions and how to reso
 Non-breaking changes aren't included, for those see our [Release history](https://github.com/mesa/mesa/releases).
 
 ## Mesa 3.5.0
+### DataCollector Deprecated
+
+`DataCollector` is deprecated and will be removed in Mesa 4.0.
+
+Users should migrate to the new data collection system:
+
+- `DataRegistry`
+- `DataSet`
+- `DataRecorder`
+
+The legacy `DataCollector` class will continue to work for now but will emit a `FutureWarning` to notify users about the upcoming removal.
+
+#### Example
+
+```python
+# Old (deprecated)
+from mesa.datacollection import DataCollector
+
+datacollector = DataCollector(
+    model_reporters={"AgentCount": lambda m: len(m.agents)}
+)
+```
+
+```python
+# New
+# Use the new data collection system instead
+from mesa.datacollection import DataRegistry
+```
+
+- Ref: [Issue #3547](https://github.com/projectmesa/mesa/issues/3547), [PR #3550](https://github.com/projectmesa/mesa/pull/3550)
+
 ### Event scheduling and time advancement
 Mesa 3.5 introduces public methods for event scheduling and time advancement directly on `Model`, replacing the need for `Simulator` classes.
 
@@ -587,4 +618,4 @@ With:
 self.datacollector = DataCollector(...)
 ```
 
-- Ref: [PR #2327](https://github.com/mesa/mesa/pull/2327), Mesa-examples [PR #208](https://github.com/mesa/mesa-examples/pull/208))
+- Ref: [PR #2327](https://github.com/mesa/mesa/pull/2327), Mesa-examples [PR #208](https://github.com/mesa/mesa-examples/pull/208)

@@ -116,6 +116,14 @@ class DataCollector:
             - If your model includes a large number of agents, it is recommended to
               use attribute names for the agent reporter, as it will be faster.
         """
+        warnings.warn(
+            "DataCollector is deprecated and will be removed in Mesa 4.0. "
+            "Use the new data collection system (DataRegistry, DataSet, DataRecorder) instead. "
+            "See: https://mesa.readthedocs.io/latest/migration_guide.html",
+            FutureWarning,
+            stacklevel=2,
+        )
+
         self.model_reporters = {}
         self.agent_reporters = {}
         self.agenttype_reporters = {}
